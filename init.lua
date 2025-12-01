@@ -1,0 +1,80 @@
+----- VIM settings -----
+
+-- set <space> as the leader key (See `:help mapleader`)
+vim.g.mapleader = ' '
+vim.g.maplocalleader = '//'
+
+-- show line number
+vim.o.number = true
+
+-- show tab ('\t') as 4 spaces
+vim.o.tabstop = 4
+
+-- insert/remove 4 spaces when using the shift operations (>> or <<)
+vim.o.shiftwidth = 4
+
+-- replace tab with spaces
+vim.o.expandtab = true
+
+-- show relative number to cursor's line, instead of line number
+vim.o.relativenumber = true
+
+-- highlight the cursor's line
+vim.o.cursorline = true
+
+-- do not show mode ("-- INSERT --" at the bottom)
+vim.o.showmode = false
+
+-- keep signcolumn on by default
+vim.o.signcolumn = 'yes'
+
+-- idle ms for saving file to disk for crash-recovery, default is 4000
+vim.o.updatetime = 888
+
+-- mapped sequence wait time in ms (default is 1000)
+vim.o.timeoutlen = 300
+
+vim.o.list = true
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+
+-- minimum number of lines to keep below or above the cursor
+vim.o.scrolloff = 10
+
+-- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
+-- instead raise a dialog asking if you wish to save the current file(s)
+-- see `:help 'confirm'`
+vim.o.confirm = true
+
+-- clear highlights on search when pressing <Esc> in normal mode
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+
+-- Highlight when yanking (copying) text
+--  Try it with `yap` in normal mode
+--  See `:help vim.hl.on_yank()`
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Highlight when yanking (copying) text',
+  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+  callback = function()
+    vim.hl.on_yank()
+  end,
+})
+
+-- do cargo check after saving .rs file
+vim.api.nvim_create_user_command(
+    "Wf",
+    function()
+        local file_ext = vim.fn.expand("%:e")
+        print("Running custom save")
+        vim.cmd("w")
+        if file_ext == "rs" then
+            vim.cmd("!cargo check")
+        else
+            print("No custom action for '" .. file_ext .. "' files")
+        end
+    end,
+    { nargs = 0 }
+);
+
+------- Lazy --------
+
+require("config.lazy")
