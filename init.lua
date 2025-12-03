@@ -28,6 +28,9 @@ vim.o.showmode = false
 -- keep signcolumn on by default
 vim.o.signcolumn = 'yes'
 
+-- share clipboard with OS
+vim.o.clipboard = "unnamedplus"
+
 -- idle ms for saving file to disk for crash-recovery, default is 4000
 vim.o.updatetime = 888
 
@@ -52,11 +55,11 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 --  Try it with `yap` in normal mode
 --  See `:help vim.hl.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.hl.on_yank()
-  end,
+    desc = 'Highlight when yanking (copying) text',
+    group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+    callback = function()
+        vim.hl.on_yank()
+    end,
 })
 
 -- do cargo check after saving .rs file
@@ -75,6 +78,8 @@ vim.api.nvim_create_user_command(
     { nargs = 0 }
 );
 
-------- Lazy --------
-
 require("config.lazy")
+
+vim.lsp.enable('lua_ls')
+vim.lsp.enable('clangd')
+vim.lsp.enable('rust_analyzer')

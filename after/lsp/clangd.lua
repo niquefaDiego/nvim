@@ -1,0 +1,1 @@
+-- I can add custom clangd settings here in the future if needed
