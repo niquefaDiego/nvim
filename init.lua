@@ -63,22 +63,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     end,
 })
 
--- do cargo check after saving .rs file
-vim.api.nvim_create_user_command(
-    "Wf",
-    function()
-        local file_ext = vim.fn.expand("%:e")
-        print("Running custom save")
-        vim.cmd("w")
-        if file_ext == "rs" then
-            vim.cmd("!cargo check")
-        else
-            print("No custom action for '" .. file_ext .. "' files")
-        end
-    end,
-    { nargs = 0 }
-);
-
 vim.diagnostic.config {
     severity_sort = true,
     float = { border = 'rounded', source = 'if_many' },
