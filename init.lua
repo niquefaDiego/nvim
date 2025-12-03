@@ -29,7 +29,8 @@ vim.o.showmode = false
 vim.o.signcolumn = 'yes'
 
 -- share clipboard with OS
-vim.o.clipboard = "unnamedplus"
+-- Not using it because it might break Ctrl-v (block mode for multi-line edits)
+-- vim.o.clipboard = "unnamedplus"
 
 -- idle ms for saving file to disk for crash-recovery, default is 4000
 vim.o.updatetime = 888
@@ -78,8 +79,24 @@ vim.api.nvim_create_user_command(
     { nargs = 0 }
 );
 
+vim.diagnostic.config {
+    severity_sort = true,
+    float = { border = 'rounded', source = 'if_many' },
+    underline = { severity = vim.diagnostic.severity.ERROR },
+    virtual_text = {
+        source = 'if_many',
+        spacing = 2,
+    },
+}
+
+vim.keymap.set("n", "<leader>d", function()
+  vim.diagnostic.open_float(0, { scope = "line" })
+end, { desc = "Open full diagnostic message" })
+
+
 require("config.lazy")
 
 vim.lsp.enable('lua_ls')
 vim.lsp.enable('clangd')
 vim.lsp.enable('rust_analyzer')
+
