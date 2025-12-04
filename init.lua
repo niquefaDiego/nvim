@@ -17,7 +17,7 @@ vim.o.shiftwidth = 4
 vim.o.expandtab = true
 
 -- show relative number to cursor's line, instead of line number
-vim.o.relativenumber = true
+vim.o.relativenumber = false -- I tried relative numbers and didn't like it :'v
 
 -- highlight the cursor's line
 vim.o.cursorline = true
@@ -83,5 +83,8 @@ require("config.lazy")
 vim.lsp.enable('lua_ls')
 vim.lsp.enable('clangd')
 vim.lsp.enable('rust_analyzer')
+
+-- lsp mappings
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { silent = true })
 
 vim.cmd[[colorscheme tokyonight]]
