@@ -77,7 +77,6 @@ vim.keymap.set("n", "<leader>d", function()
   vim.diagnostic.open_float(0, { scope = "line" })
 end, { desc = "Open full diagnostic message" })
 
-
 require("config.lazy")
 
 vim.lsp.enable('lua_ls')
@@ -86,5 +85,10 @@ vim.lsp.enable('rust_analyzer')
 
 -- lsp mappings
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { silent = true })
+
+-- open working directory with mini.files
+vim.keymap.set("n", "<leader>od", function()
+    vim.cmd[[lua MiniFiles.open()]]
+end, { silent = true })
 
 vim.cmd[[colorscheme tokyonight]]
