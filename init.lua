@@ -91,4 +91,9 @@ vim.keymap.set("n", "<leader>od", function()
     vim.cmd[[lua MiniFiles.open()]]
 end, { silent = true })
 
+-- exit buffer
+vim.keymap.set("n", "<leader>q", function()
+    vim.cmd[[bd]]
+end, { silent = true })
+
 vim.cmd[[colorscheme tokyonight]]
