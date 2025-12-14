@@ -110,6 +110,13 @@ end)
 -- use Esc to exit terminal mode
 vim.api.nvim_set_keymap('t', '<Esc>', [[<C-\><C-n>]], {noremap = true, silent = true})
 
+-- exit terminal on second scape press
+vim.keymap.set("n", "<Esc>", function()
+    if vim.opt.buftype:get() == 'terminal' then
+        vim.cmd[[bd!]]
+    end
+end)
+
 -- exit buffer
 vim.keymap.set("n", "<leader>q", function()
     vim.cmd[[bd]]
