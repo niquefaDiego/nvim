@@ -16,9 +16,6 @@ vim.o.shiftwidth = 4
 -- replace tab with spaces
 vim.o.expandtab = true
 
--- show relative number to cursor's line, instead of line number
-vim.o.relativenumber = false -- I tried relative numbers and didn't like it :'v
-
 -- highlight the cursor's line
 vim.o.cursorline = true
 
@@ -38,6 +35,9 @@ vim.o.updatetime = 888
 -- mapped sequence wait time in ms (default is 1000)
 vim.o.timeoutlen = 300
 
+-- vertical line at 100 characters
+vim.opt.colorcolumn = "100"
+
 vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
@@ -48,6 +48,9 @@ vim.o.scrolloff = 10
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- see `:help 'confirm'`
 vim.o.confirm = true
+
+-- vertical split to the right by default
+vim.o.splitright = true
 
 -- clear highlights on search when pressing <Esc> in normal mode
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -91,9 +94,27 @@ vim.keymap.set("n", "<leader>od", function()
     vim.cmd[[lua MiniFiles.open()]]
 end, { silent = true })
 
+-- open a terminal
+local terminal_job_id = 0;
+vim.keymap.set("n", "<leader>to", function()
+    vim.cmd.vnew()
+    vim.cmd.term()
+    terminal_job_id = vim.bo.channel
+end)
+
+-- run in terminal
+vim.keymap.set("n", "<leader>tr", function()
+    vim.fn.chansend(terminal_job_id, "git status\r\n")
+end)
+
+-- use Esc to exit terminal mode
+vim.api.nvim_set_keymap('t', '<Esc>', [[<C-\><C-n>]], {noremap = true, silent = true})
+
 -- exit buffer
 vim.keymap.set("n", "<leader>q", function()
     vim.cmd[[bd]]
 end, { silent = true })
+
+vim.keymap.set("n", "<leader>j", function() vim.cmd[[lua MiniJump2d.start()]] end);
 
 vim.cmd[[colorscheme tokyonight]]
