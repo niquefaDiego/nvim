@@ -10,6 +10,9 @@ return {
             require('mini.tabline').setup()
             require('mini.jump2d').setup()
             require('mini.completion').setup()
+            require('mini.sessions').setup()
+            require('mini.visits').setup()
+            require('mini.splitjoin').setup()
         end
     }
 }
