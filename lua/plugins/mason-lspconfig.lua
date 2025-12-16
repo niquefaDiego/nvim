@@ -4,8 +4,9 @@ return {
         opts = {
             ensure_installed = {
                 "clangd",
-                "lua_ls",
-                "rust_analyzer"
+                "lua_ls", -- lua-language-server
+                "rust_analyzer", -- rust-analyzer
+                "powershell_es" -- powershell-editor-services
             }
         },
         dependencies = {
