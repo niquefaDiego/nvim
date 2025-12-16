@@ -12,7 +12,7 @@ return {
             require('mini.completion').setup()
             require('mini.sessions').setup()
             require('mini.visits').setup()
-            require('mini.splitjoin').setup()
+            require('mini.splitjoin').setup() -- shortcut: gS
         end
     }
 }
