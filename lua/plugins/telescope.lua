@@ -11,23 +11,26 @@ return {
                 extensions = { fzf = {} }
             }
             local builtin = require("telescope.builtin")
-            -- find in working directory
-            vim.keymap.set("n", "<leader>fd", builtin.find_files)
 
-            -- edit neovim config
+            -- find file in working directory
+            vim.keymap.set("n", "<leader>fd", builtin.find_files)
+            -- grep in working directory
+            vim.keymap.set("n", "<Leader>gd", require("telescope.builtin").live_grep, { noremap = true, silent = true })
+
+            -- find file in neovim config
             vim.keymap.set(
                 "n",
-                "<leader>en",
+                "<leader>fn",
                 function()
                     builtin.find_files {
                         cwd = vim.fn.stdpath("config")
                     }
                 end
             )
-            -- edit neovim package
+            -- find file in neovim packages
             vim.keymap.set(
                 "n",
-                "<leader>ep",
+                "<leader>fnp",
                 function()
                     builtin.find_files {
                         cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy")

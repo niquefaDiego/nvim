@@ -7,6 +7,7 @@ return {
                 "lua_ls",           -- lua-language-server
                 "rust_analyzer",    -- rust-analyzer
                 "powershell_es",    -- powershell-editor-services
+                "csharp_ls",        -- csharp-language-server
 --                "hls",              -- haskell-language-server
             }
         },
