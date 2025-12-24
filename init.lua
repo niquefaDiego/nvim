@@ -82,9 +82,7 @@ end, { desc = "Open full diagnostic message" })
 
 require("config.lazy")
 
-vim.lsp.enable('lua_ls')
-vim.lsp.enable('clangd')
-vim.lsp.enable('rust_analyzer')
+vim.cmd[[colorscheme tokyonight]]
 
 -- lsp mappings
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { silent = true })
@@ -124,4 +122,7 @@ end, { silent = true })
 
 vim.keymap.set("n", "<leader>j", function() vim.cmd[[lua MiniJump2d.start()]] end);
 
-vim.cmd[[colorscheme tokyonight]]
+
+vim.keymap.set("n", "<leader>m", ":messages<CR>", { desc = "Display neovim messages" })
+
+require('shortcuts')

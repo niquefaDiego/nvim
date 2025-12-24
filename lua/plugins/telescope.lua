@@ -37,6 +37,19 @@ return {
                     }
                 end
             )
+            -- find file in quick access folder
+            vim.keymap.set(
+                "n",
+                "<leader>fq",
+                function()
+                    builtin.find_files {
+                        cwd = "C:\\Shortcuts",
+--                        find_command = { "rg", "--files", "--sort", "path" },
+                        previewer = false,
+                        follow = true
+                    }
+                end
+            )
 
             -- find help
             vim.keymap.set("n", "<leader>fh", builtin.help_tags)
