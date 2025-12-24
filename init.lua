@@ -122,7 +122,13 @@ end, { silent = true })
 
 vim.keymap.set("n", "<leader>j", function() vim.cmd[[lua MiniJump2d.start()]] end);
 
-
 vim.keymap.set("n", "<leader>m", ":messages<CR>", { desc = "Display neovim messages" })
+
+-- Close mini.files when opening telescope
+vim.api.nvim_create_autocmd("User", {
+  pattern = "TelescopeFindPre",
+  callback = function() if _G.MiniFiles then _G.MiniFiles.close() end end
+})
+
 
 require('shortcuts')

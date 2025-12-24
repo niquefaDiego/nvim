@@ -15,30 +15,28 @@ vim.api.nvim_create_autocmd("VimEnter", {
             SHORTCUTS_CHANGE_DIR_ON_SYMLINK = true
             print("Entered VIM from default location, going to shortcuts!")
             vim.api.nvim_set_current_dir(SHORTCUTS_FOLDER)
-            vim.cmd[[lua MiniFiles.open()]]
+            local builtin = require("telescope.builtin")
+            builtin.find_files({
+                cwd = SHORTCUTS_FOLDER,
+                previewer = false,
+                follow = true
+            })
         end
     end,
 })
 
--- Change working directory after opening neovim from a directory called "Shortcuts"
--- and then following a symlimk from there.
 vim.api.nvim_create_autocmd("BufEnter", {
     desc = "Change working directory when following a symlink from a folder named \"Shortcuts\"",
     group = SHORTCUTS_GROUP,
     callback = function()
-        if not SHORTCUTS_CHANGE_DIR_ON_SYMLINK then
-            return
-        end
-
+        if not SHORTCUTS_CHANGE_DIR_ON_SYMLINK then return end
         local buffer_name = vim.api.nvim_buf_get_name(0)
-
         if buffer_name ~= "" then
             SHORTCUTS_CHANGE_DIR_ON_SYMLINK = false
             local new_dir = buffer_name
             if vim.fn.isdirectory(new_dir) ~= 1 then
                 new_dir = vim.fn.fnamemodify(new_dir, ":h")
             end
-
             print("Changing working directory to \"" .. new_dir .. "\"")
             vim.fn.chdir(new_dir)
         end
