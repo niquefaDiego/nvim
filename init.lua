@@ -39,7 +39,7 @@ vim.o.timeoutlen = 300
 vim.opt.colorcolumn = "100"
 
 vim.o.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = {tab = '» ', trail = '·', nbsp = '␣'}
 
 -- minimum number of lines to keep below or above the cursor
 vim.o.scrolloff = 10
@@ -75,6 +75,26 @@ vim.diagnostic.config {
         spacing = 2,
     },
 }
+
+----- Quickfix -----
+local function toggle_quickfix()
+  -- Check if a quickfix window exists and is open
+  local windows = vim.fn.getwininfo()
+  for _, win in pairs(windows) do
+    if win["quickfix"] == 1 then
+      vim.cmd.cclose()
+      return
+    end
+  end
+  -- If not open, check if the list has entries and open it
+  if not vim.tbl_isempty(vim.fn.getqflist()) then
+    vim.cmd.copen()
+  end
+end
+vim.keymap.set('n', '<Leader>c', toggle_quickfix, { desc = "Toggle Quickfix Window" })
+vim.keymap.set("n", "<leader>]", ":cnext<CR>" , { desc = "Go to next quicklist item" })
+vim.keymap.set("n", "<leader>[", ":cprevious<CR>" , { desc = "Go to previous quicklist item" })
+
 
 vim.keymap.set("n", "<leader>d", function()
   vim.diagnostic.open_float(0, { scope = "line" })

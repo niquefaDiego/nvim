@@ -4,10 +4,16 @@ SHORTCUTS_FOLDER = "C:\\Shortcuts"
 SHORTCUTS_GROUP = vim.api.nvim_create_augroup("Shortcuts", { clear = true })
 SHORTCUTS_CHANGE_DIR_ON_SYMLINK = false
 
+local SHORTCUTS_FOLDER_EXISTS = false
+if vim.fn.isdirectory(SHORTCUTS_FOLDER) ~= 0 then
+    SHORTCUTS_FOLDER_EXISTS = true
+end
+
 vim.api.nvim_create_autocmd("VimEnter", {
     desc = "Change directory to shortcuts folder when nvim opens on default location",
     group = SHORTCUTS_GROUP,
     callback = function()
+        if not SHORTCUTS_FOLDER_EXISTS then return end
         local cwd = vim.fn.getcwd()
         local nvim_exec_path = vim.fn.exepath("nvim")
         local nvim_exec_folder = vim.fn.fnamemodify(nvim_exec_path, ":p:h")
