@@ -106,6 +106,13 @@ vim.cmd[[colorscheme tokyonight]]
 
 -- lsp mappings
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { silent = true })
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = vim.api.nvim_create_augroup("LspFormatting", {}),
+  pattern = "*.rs",
+  callback = function()
+    vim.lsp.buf.format({ async = false })
+  end,
+})
 
 -- open working directory with mini.files
 vim.keymap.set("n", "<leader>od", function()
@@ -152,3 +159,4 @@ vim.api.nvim_create_autocmd("User", {
 
 
 require('shortcuts')
+require('scroll')

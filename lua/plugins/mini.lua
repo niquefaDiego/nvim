@@ -5,9 +5,17 @@ return {
         config = function()
             require('mini.icons').setup()
             require('mini.statusline').setup()
+            require('mini.tabline').setup({
+                 format = function(buf_id, label)
+                     if label == "mod.rs" then
+                         local module_name = vim.fn.expand("%:h:t")
+                         label = module_name .. "/" .. label
+                     end
+                     return MiniTabline.default_format(buf_id, label)
+                 end
+            })
             require('mini.files').setup()
             require('mini.cursorword').setup()
-            require('mini.tabline').setup()
             require('mini.jump').setup({
                 delay = {
                     highlight = 0, -- Delay between jump and highlighting all possible jumps
