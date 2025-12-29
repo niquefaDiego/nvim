@@ -129,7 +129,7 @@ end)
 
 -- run in terminal
 vim.keymap.set("n", "<leader>tr", function()
-    vim.fn.chansend(terminal_job_id, "git status\r\n")
+    vim.fn.chansend(terminal_job_id, "cargo run\r\n")
 end)
 
 -- use Esc to exit terminal mode
