@@ -120,16 +120,9 @@ vim.keymap.set("n", "<leader>od", function()
 end, { silent = true })
 
 -- open a terminal
-local terminal_job_id = 0;
 vim.keymap.set("n", "<leader>to", function()
     vim.cmd.vnew()
     vim.cmd.term()
-    terminal_job_id = vim.bo.channel
-end)
-
--- run in terminal
-vim.keymap.set("n", "<leader>tr", function()
-    vim.fn.chansend(terminal_job_id, "cargo run\r\n")
 end)
 
 -- use Esc to exit terminal mode
@@ -156,7 +149,6 @@ vim.api.nvim_create_autocmd("User", {
   pattern = "TelescopeFindPre",
   callback = function() if _G.MiniFiles then _G.MiniFiles.close() end end
 })
-
 
 require('shortcuts')
 require('scroll')
