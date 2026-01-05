@@ -5,6 +5,7 @@ return {
         config = function()
             require('mini.icons').setup()
             require('mini.statusline').setup()
+            require('mini.surround').setup()
             require('mini.tabline').setup({
                  format = function(buf_id, label)
                      if label == "mod.rs" then
@@ -22,7 +23,6 @@ return {
                     idle_stop = 10000000, -- Delay between jump and automatic stop if idle (no jump is done)
                 }
             })
-            require('mini.jump2d').setup()
             require('mini.completion').setup()
             require('mini.sessions').setup()
             require('mini.visits').setup()
