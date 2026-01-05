@@ -5,7 +5,9 @@ return {
         config = function()
             require('mini.icons').setup()
             require('mini.statusline').setup()
-            require('mini.surround').setup()
+            require('mini.surround').setup({
+                n_lines = 200,
+            })
             require('mini.tabline').setup({
                  format = function(buf_id, label)
                      if label == "mod.rs" then
